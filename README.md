@@ -35,11 +35,21 @@ Ventana Principal del Programa
 
 ![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/Screenshot%20(188).png)
 
+ Iniciar Sesion
+
+![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/inici.png)
+
+Ventana Registrarse
+
 ![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/Screenshot%20(189).png)
 
 ![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/Screenshot%20(190).png)
 
 ![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/Screenshot%20(192).png)
+
+ Listar Telefono
+
+![Alt text](https://github.com/SUyaguari/Practica-de-laboratorio-08-Agenda-Telefonica-con-MVC-y-DAO-con-Archivos-Binarios/blob/master/imagenes%20Git/bu.png)
 
 
 Pruebas realizadas dentro del programa
