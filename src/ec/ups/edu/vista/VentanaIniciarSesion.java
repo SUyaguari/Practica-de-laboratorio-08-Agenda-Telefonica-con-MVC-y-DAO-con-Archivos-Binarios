@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.ups.edu.vista;
 
 import ec.ups.edu.controlador.ControladorUsuario;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SpringLayout;
+
 
 /**
  *
@@ -23,19 +13,12 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
     private VentanaPrincipal ventanaPrincipal;
     private ControladorUsuario controladorUsuario;
 
-    private Locale localizacion;
-    private ResourceBundle mensajes;
-
     public VentanaIniciarSesion(ControladorUsuario controladorUsuario, VentanaPrincipal ventanaPrincipal) {
         initComponents();
 
         this.ventanaPrincipal = ventanaPrincipal;
         this.controladorUsuario = controladorUsuario;
-
-        localizacion = new Locale("en", "US");
-        mensajes = ResourceBundle.getBundle("ec.ups.edu.idiomas.mensajes", localizacion);
-        cambiarIdioma();
-
+  
     }
 
     @SuppressWarnings("unchecked")
@@ -52,9 +35,9 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Iniciar Sesion");
 
-        LabelCorreo.setText("Correo Electronico:");
+        LabelCorreo.setText("Correo Electronico");
 
-        LabelContrasena.setText("Contraseña:");
+        LabelContrasena.setText("Contraseña");
 
         btnInicioSesion.setText("Iniciar Sesion");
         btnInicioSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +76,7 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
                         .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
                         .addComponent(btnInicioSesion)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,15 +101,6 @@ public class VentanaIniciarSesion extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void cambiarIdioma() {
-
-        LabelCorreo.setText((mensajes.getString("LabelCorreo")));
-        LabelContrasena.setText(mensajes.getString("LabelContrasena"));
-        btnInicioSesion.setText(mensajes.getString("btnIniciarSesion"));
-        btnLimpiar.setText(mensajes.getString("btnLimpiar"));
-
-    }
 
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
