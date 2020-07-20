@@ -14,16 +14,9 @@ public class VentanaRegistrarse extends javax.swing.JInternalFrame {
 
     private ControladorUsuario controladorUsuario;
 
-    private Locale localizacion;
-    private ResourceBundle mensajes;
-
     public VentanaRegistrarse(ControladorUsuario controladorUsuario) {
         initComponents();
         this.controladorUsuario = controladorUsuario;
-
-        localizacion = new Locale("en", "US");
-        mensajes = ResourceBundle.getBundle("ec.ups.edu.idiomas.mensajes", localizacion);
-        cambiarIdioma();
 
     }
 
@@ -159,18 +152,6 @@ public class VentanaRegistrarse extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    public void cambiarIdioma(){
-        
-        LabelCedula.setText(mensajes.getString("LabelCedula"));
-        LabelNombre.setText(mensajes.getString("LabelNombre"));
-        LabelApellido.setText(mensajes.getString("LabelApellido"));
-        LabelCorreo.setText(mensajes.getString("LabelCorreo"));
-        LabelContrasena.setText(mensajes.getString("LabelContrasena"));
-        btnRegistrarse.setText(mensajes.getString("btnRegistrarse"));
-        btnLimpiar.setText(mensajes.getString("btnLimpiar"));
-    
-    }
-    
     public void limpiar() {
 
         txtCedula.setText("");
