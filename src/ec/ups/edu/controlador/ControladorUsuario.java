@@ -9,11 +9,12 @@ import ec.ups.edu.modelo.Usuario;
 import ec.ups.edu.vista.VentanaIniciarSesion;
 import ec.ups.edu.vista.VentanaPrincipal;
 import ec.ups.edu.vista.VentanaRegistrarse;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorUsuario {
 
-    VentanaPrincipal ventanaPrincipal;
+   VentanaPrincipal ventanaPrincipal;
     VentanaIniciarSesion ventanaIniciar;
     VentanaRegistrarse ventanaRegistrarse;
     IUsuarioDao usuarioDao;
@@ -43,73 +44,27 @@ public class ControladorUsuario {
 
     }
 
-    public void actualizar() {
-
+    public boolean actualizarUsuario(Usuario usuario) {
+        boolean cent = usuarioDao.update(usuario);
+        return cent;
     }
 
-    public void eliminar() {
-
-    }
-
-    public void agregarTelefon(int codigo, String numero, String tipo, String operadora) {
-
-        telefono = new Telefono(codigo, numero, tipo, operadora);
-        //Se crea en el dao del telefono
-        telefonoDao.create(telefono);
-        //ingreso el telefono dentro del usuario
-        usuario.ingresoTelefono(telefono);
-        //se actualiza con el usuario que le acabo de agregar
-        usuarioDao.update(usuario);
-    }
-
-    public void actualizarTelefono(int codigo, String numero, String tipo, String operadora) {
-
-        telefono = new Telefono(codigo, numero, tipo, operadora);
-        telefonoDao.update(telefono);
-
-        usuario.actualizarTelefono(telefono);
-        usuarioDao.update(usuario);
-
-    }
-
-    public void actualizarUsuario(String nombre, String apellido, String cedula, String correo,
-            String password) {
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setCorreo(correo);
-        usuario.setContrasena(password);
-        usuario.setCedula(cedula);
+    public boolean eliminarUsuario(String cedula) {
+        usuario = usuarioDao.read(cedula);
         
-        usuarioDao.update(usuario);
-       
+        if(usuario!=null){
+            usuarioDao.delete(usuario);
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    
-     public Usuario devolverUsuario() {
+    public Usuario devolverUsuario() {
         return usuario;
     }
 
-    public List<Telefono> listarTelefonos() {
-
-        return usuario.getListaTelefono();
-
-    }
-
-    public void eliminarTelefono(int codigo) {
-
-        telefono = telefonoDao.read(codigo);
-
-        if (telefono != null) {
-
-            telefonoDao.delete(telefono);
-            usuario.elimarTelefono(telefono);
-            usuarioDao.update(usuario);
-            telefono = null;
-
-        }
-
-    }
-
+    
     public boolean validarUsuario(String correo, String contrasena) {
 
         usuario = usuarioDao.login(correo, contrasena);
@@ -123,5 +78,56 @@ public class ControladorUsuario {
 
         }
 
+    }
+    
+    public List<Usuario> listarUsuarios(){
+        List<Usuario> lisa = new ArrayList<Usuario>();
+        lisa = usuarioDao.findAll();
+        return lisa;
+    }
+    
+    public void agregarTelefono(int codigo, String numero, String tipo, String operadora){
+        telefono = new Telefono(codigo, numero, tipo, operadora);
+        telefono.setUsuario(usuario);
+        telefonoDao.create(telefono);
+    }
+    
+     public void imprimirTelefonos() {
+        List<Telefono> telefonos;
+        telefonos = telefonoDao.listarTelefonos();
+
+        for (Telefono tele : telefonos) {
+            System.out.println(tele.toString());
+        }
+    }
+     
+     public void actualizarTelefono(int codigo, String numero, String tipo, String operadora) {
+
+        telefono = new Telefono(codigo, numero, tipo, operadora);
+        telefonoDao.update(telefono);
+        
+    }
+
+    public String buscarTelefono(int codigo) {
+        telefono = telefonoDao.read(codigo);
+        if (telefono != null) {
+            //usuario.buscar(telefono);
+            return telefono.toString();
+        } else {
+            return "";
+        }
+
+    }
+
+    public void eliminarTelefono(int codigo){
+        telefono = telefonoDao.read(codigo);
+        if(telefono!=null){
+            telefonoDao.delete(telefono);
+        }
+    }
+    public List<Telefono> listarTelefonosUsuario() {
+        String id = usuario.getCedula().trim();
+
+        return telefonoDao.telefonosUsuario(id);
     }
 }
