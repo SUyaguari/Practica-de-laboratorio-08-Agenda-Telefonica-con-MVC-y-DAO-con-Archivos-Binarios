@@ -17,9 +17,10 @@ public interface ITelefonoDao {
     //Crud
     public void create(Telefono telefono);
     public Telefono read(int codigo);
-    public void update (Telefono telefono);
+    public boolean update (Telefono telefono);
     public void delete(Telefono telefono);
     public List<Telefono> listarTelefonos();
+    public List<Telefono> telefonosUsuario(String id);
     //Obtenemos el codigo
     public int obtenerUltimoCodigo();
     
