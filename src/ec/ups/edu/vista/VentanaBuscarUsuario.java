@@ -214,13 +214,13 @@ public class VentanaBuscarUsuario extends javax.swing.JInternalFrame {
 
         String cedula = txtCedula.getText();
         Usuario u = controladorUsuario.buscarUsuarioCedula(cedula);
-
+        List<Telefono> lista = controladorUsuario.listarTelefonosUsuario();
         if (u != null) {
 
             txtNombre.setText(u.getNombre());
             txtApellido.setText(u.getApellido());
             txtCorreo.setText(u.getCorreo());
-            cargarTelefonotblTelefono(u.getListaTelefono());
+            cargarTelefonotblTelefono(lista);
 
         } else {
 
@@ -259,19 +259,7 @@ public class VentanaBuscarUsuario extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnListarActionPerformed
 
-    public void cargarTablaTelefono() {
-
-        DefaultTableModel modelo = (DefaultTableModel) tblTelefonoss.getModel();
-        //numero de filas es igual a 0 elimino todo lo que existe
-        modelo.setRowCount(0);
-        for (Telefono listaTelefono : controladorUsuario.listarTelefonos()) {
-            Object[] rowData = {listaTelefono.getCodigo(), listaTelefono.getTipo(), listaTelefono.getNumero(), listaTelefono.getOperadora()};
-            modelo.addRow(rowData);
-
-        }
-        tblTelefonoss.setModel(modelo);
-
-    }
+   
 
     public void limpiar() {
 
