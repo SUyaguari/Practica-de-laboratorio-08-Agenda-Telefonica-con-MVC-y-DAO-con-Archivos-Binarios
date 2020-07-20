@@ -16,11 +16,12 @@ public interface IUsuarioDao {
     
     public void create(Usuario usuario);
     public Usuario read(String cedula);
-    public void update (Usuario usuario);
+    public boolean update (Usuario usuario);
     public void delete(Usuario usuario);
     public List<Usuario>findAll();
     public  Usuario login(String correo,String contrasena);
 
+    
     
     
 }
