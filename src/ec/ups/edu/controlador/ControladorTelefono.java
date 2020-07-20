@@ -14,25 +14,31 @@ public class ControladorTelefono {
         this.telefonoDao = telefonoDao;
     }
     
-    public void RegistrarTelefono(){
-        
+    public void RegistrarTelefono(Telefono telefono){
+        telefonoDao.create(telefono);
     }
     
-    public void verTelefono(){
-        
-    }
-    public void actualizar(){
-        
+    public Telefono buscarTelefono(int codigo){
+        telefono = telefonoDao.read(codigo);
+        return telefono;
     }
     
-    public void eliminar(){
-        
+    public boolean actualizarTelefono(){
+        boolean cent = telefonoDao.update(telefono);
+        return cent;
     }
     
-    public void verClientes(){
+    public boolean eliminarUsuario(int codigo) {
+        telefono = telefonoDao.read(codigo);
         
-        
+        if(telefono!=null){
+            telefonoDao.delete(telefono);
+            return true;
+        }else{
+            return false;
+        }
     }
+    
     public List<Telefono> listaTelefono(){
         
       return telefonoDao.listarTelefonos();
@@ -42,8 +48,6 @@ public class ControladorTelefono {
     public int obtenerSiguienteCodigo(){
         
         int codigo = telefonoDao.obtenerUltimoCodigo();
-        
-        //decuelve el codigo incrementado en uno
         return ++codigo;
         
     }
