@@ -24,9 +24,6 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo;
 
-    private Locale localizacion;
-    private ResourceBundle mensajes;
-
     public VentanaGestionTelefono(ControladorUsuario controladorUsuario, ControladorTelefono controladorTelefono) {
 
         initComponents();
@@ -43,22 +40,6 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
         cargarDatosOperadoras();
         cmbOperadora();
 
-        localizacion = new Locale("en", "US");
-        mensajes = ResourceBundle.getBundle("ec.ups.edu.idiomas.mensajes", localizacion);
-        cambiarIdioma();
-
-    }
-
-    public void cambiarIdioma() {
-
-        LabelCodigo.setText(mensajes.getString("LabelCodigo"));
-        LabelTipo.setText(mensajes.getString("LabelTipo"));
-        LabelNumero.setText(mensajes.getString("LabelNumero"));
-        LabelOperadora.setText(mensajes.getString("LabelOperadora"));
-        btnActualizar.setText(mensajes.getString("btnActualizar"));
-        btnAgregar.setText(mensajes.getString("btnAgregar"));
-        btnEliminar.setText(mensajes.getString("btnEliminar"));
-        btnCancelar.setText(mensajes.getString("btnCancelar"));
     }
 
     public void cargarDatosOperadoras() {
@@ -70,13 +51,12 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
         operadoras.add("Cnt");
         operadoras.add("Tuenti");
         operadoras.add("Etapa");
-       
 
     }
 
     public void caragarSiguienteCodigo() {
 
-        txtCodigo.setText(String.valueOf(controladorTelefono.obtenerSiguienteCodigo()));
+        txtCodigo.setText(controladorTelefono.obtenerSiguienteCodigo() + "");
 
     }
 
@@ -97,8 +77,8 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) tblTelefonos.getModel();
         //numero de filas es igual a 0 elimino todo lo que existe
         modelo.setRowCount(0);
-        for (Telefono telefono : controladorUsuario.listarTelefonos()) {
-            Object[] rowData = {telefono.getCodigo(), telefono.getTipo(), telefono.getNumero(), telefono.getOperadora()};
+        for (Telefono telefono : controladorUsuario.listarTelefonosUsuario()) {
+            Object[] rowData = {telefono.getCodigo(), telefono.getTipo().trim(), telefono.getNumero().trim(), telefono.getOperadora().trim()};
             modelo.addRow(rowData);
 
         }
@@ -194,16 +174,9 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         tblTelefonos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,6 +185,10 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(tblTelefonos);
+        if (tblTelefonos.getColumnModel().getColumnCount() > 0) {
+            tblTelefonos.getColumnModel().getColumn(0).setResizable(false);
+            tblTelefonos.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -323,12 +300,15 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
 
         } else {
 
-            controladorUsuario.agregarTelefon(Integer.parseInt(txtCodigo.getText()),
+            controladorUsuario.agregarTelefono(Integer.parseInt(txtCodigo.getText()),
                     txtNumero.getText(), cmbTipo.getSelectedItem() + "", cmbOperadora.getSelectedItem().toString());
             cargarTelefonostblTelefonos();
+            caragarSiguienteCodigo();
             limpiar();
 
         }
+        limpiar();
+        desactivarEdicion();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
@@ -439,11 +419,11 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Telefono eliminado exitosamente");
 
         }
+        desactivarEdicion();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
 
-        caragarSiguienteCodigo();
         cargarTelefonostblTelefonos();
         desactivarEdicion();
 
@@ -453,12 +433,13 @@ public class VentanaGestionTelefono extends javax.swing.JInternalFrame {
 
         btnAgregar.setEnabled(true);
         limpiar();
+        desactivarEdicion();
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     public void cargarSiguienteCodig() {
-
-        txtCodigo.setText(String.valueOf(controladorTelefono.obtenerSiguienteCodigo()));
+        int codigo = controladorTelefono.obtenerSiguienteCodigo();
+        txtCodigo.setText(codigo + "");
 
     }
 
