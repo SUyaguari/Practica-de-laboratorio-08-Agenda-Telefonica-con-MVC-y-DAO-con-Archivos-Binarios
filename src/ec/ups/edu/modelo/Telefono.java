@@ -9,21 +9,19 @@ public class Telefono {
     private String numero;
     private String tipo;
     private String operadora;
-    private List<Telefono> listarTelefono;
+    private Usuario usuario;
     
     
     public Telefono() {
-    
-    listarTelefono = new ArrayList<>();
-    
+        
     }
 
     public Telefono(int codigo, String numero, String tipo, String operadora) {
-        this.codigo = codigo;
-        this.numero = numero;
-        this.tipo = tipo;
-        this.operadora = operadora;
-        listarTelefono = new ArrayList<>();
+        this.setCodigo(codigo);
+        this.setNumero(numero);
+        this.setTipo(tipo);
+        this.setOperadora(operadora);
+        
         
     }
 
@@ -40,7 +38,7 @@ public class Telefono {
     }
 
     public void setNumero(String numero) {
-        this.numero = numero;
+        this.numero = validarEspacios(numero, 25);
     }
 
     public String getTipo() {
@@ -48,7 +46,7 @@ public class Telefono {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.tipo = validarEspacios(tipo, 25);
     }
 
     public String getOperadora() {
@@ -56,18 +54,33 @@ public class Telefono {
     }
 
     public void setOperadora(String operadora) {
-        this.operadora = operadora;
+        this.operadora = validarEspacios(operadora, 25);
     }
 
-    public List<Telefono> getListarTelefono() {
-        return listarTelefono;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setListarTelefono(List<Telefono> listarTelefono) {
-        this.listarTelefono = listarTelefono;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-    
 
+     public String validarEspacios(String cadena, int numero){
+        if(cadena.length()==numero){
+            return cadena;
+        }else{
+            if(cadena.length()>numero){
+                cadena = cadena.substring(0,numero);
+                return cadena;
+            }else{
+                for (int i = cadena.length(); i < numero; i++) {
+                    cadena+=" ";
+                }
+                return cadena;
+            }
+        }
+    }
+     
     @Override
     public int hashCode() {
         int hash = 3;

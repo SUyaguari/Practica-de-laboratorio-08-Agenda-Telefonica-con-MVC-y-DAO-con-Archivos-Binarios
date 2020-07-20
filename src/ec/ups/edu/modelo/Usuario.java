@@ -5,9 +5,6 @@
  */
 package ec.ups.edu.modelo;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,22 +18,18 @@ public class Usuario {
     private String apellido;
     private String correo;
     private String contrasena;
-    private List<Telefono> listaTelefono;
 
     public Usuario() {
-
-        listaTelefono = new ArrayList<>();
 
     }
 
     public Usuario(String cedula, String nombre, String apellido, String correo, String contrasena) {
 
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.contrasena = contrasena;
-        listaTelefono = new ArrayList<>();
+        this.setCedula(cedula);
+        this.setNombre(nombre);
+        this.setApellido(apellido);
+        this.setCorreo(correo);
+        this.setContrasena(contrasena);
 
     }
 
@@ -45,7 +38,7 @@ public class Usuario {
     }
 
     public void setCedula(String cedula) {
-        this.cedula = cedula;
+        this.cedula = validarEspacios(cedula, 10);
     }
 
     public String getNombre() {
@@ -53,7 +46,7 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = validarEspacios(nombre, 25);
     }
 
     public String getApellido() {
@@ -61,7 +54,7 @@ public class Usuario {
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.apellido = validarEspacios(apellido, 25);
     }
 
     public String getCorreo() {
@@ -69,7 +62,7 @@ public class Usuario {
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        this.correo = validarEspacios(correo, 50);
     }
 
     public String getContrasena() {
@@ -77,59 +70,25 @@ public class Usuario {
     }
 
     public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public void ingresoTelefono(Telefono telefono) {
-
-        listaTelefono.add(telefono);
-
-    }
-
-    public void actualizarTelefono(Telefono telefono) {
-
-        for (int i = 0; i < listaTelefono.size(); i++) {
-
-            Telefono tel = listaTelefono.get(i);
-
-            if (tel.getCodigo() == telefono.getCodigo()) {
-
-                listaTelefono.set(i, telefono);
-
-                break;
-
-            }
-
-        }
-
-    }
-
-    public void elimarTelefono(Telefono telefono) {
-
-        Iterator<Telefono> it = listaTelefono.iterator();
-
-        while (it.hasNext()) {
-
-            Telefono t = it.next();
-
-            for (int i = 0; i < listaTelefono.size(); i++) {
-
-                if (t.getCodigo() == telefono.getCodigo()) {
-
-                    it.remove();
-
-                }
-
-            }
-
-        }
-
+        this.contrasena = validarEspacios(contrasena, 8);
     }
     
-
-    public List<Telefono> getListaTelefono() {
-        return listaTelefono;
+    public String validarEspacios(String cadena, int numero){
+        if(cadena.length()==numero){
+            return cadena;
+        }else{
+            if(cadena.length()>numero){
+                cadena = cadena.substring(0,numero);
+                return cadena;
+            }else{
+                for (int i = cadena.length(); i < numero; i++) {
+                    cadena+=" ";
+                }
+                return cadena;
+            }
+        }
     }
+    
 
     @Override
     public int hashCode() {
