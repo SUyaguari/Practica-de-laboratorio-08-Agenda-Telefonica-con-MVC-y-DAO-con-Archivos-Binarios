@@ -23,13 +23,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     UsuarioDao usuarioDao;
     TelefonoDao telefonoDao;
+    
     ControladorUsuario controladorUsuario;
     ControladorTelefono controladorTelefono;
+    
     VentanaIniciarSesion ventanaIniciarSesion;
     VentanaRegistrarse ventanaRegistrars;
     VentanaGestionTelefono ventanaGestion;
     VentanaBuscarUsuario ventanaBuscarUsuario;
     VentanaGestionUsuario ventanaGestionUsuario;
+    
     private ResourceBundle mensajes;
     private Locale localizacion;
 
@@ -342,6 +345,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
